@@ -1,16 +1,16 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 if [ ! -d "libs" ]; then
-    mkdir libs
+  mkdir libs
 fi
 
-if [ ! -d "debs" ];  then
-    mkdir debs
+if [ ! -d "debs" ]; then
+  mkdir debs
 fi
 
-SOURCE="https://mirror.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc"
+# SOURCE="https://mirror.tuna.tsinghua.edu.cn/ubuntu/pool/main/g/glibc"
 # Use the source below if you feel slow, or change it on your own.
-# SOURCE="http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
+SOURCE="http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/"
 
 LIBC_PREFIX="libc6_"
 LIBC_DBG_PREFIX="libc6-dbg_"
@@ -38,7 +38,7 @@ download_single() {
   local url="$SOURCE/$deb_name"
   echo "  -> Location: $url"
   echo "  -> Downloading libc binary package"
-  wget "$url" 2>/dev/null -O debs/$deb_name || die "Failed to download package from $url"
+  wget "$url" -O debs/$deb_name 2>/dev/null || die "Failed to download package from $url"
   echo "  -> Extracting libc binary package"
 
   mkdir libs/$id
@@ -49,7 +49,7 @@ download_single() {
   local url="$SOURCE/$dbg_name"
   echo "  -> Location: $url"
   echo "  -> Downloading libc debug package"
-  wget "$url" 2>/dev/null -O debs/$dbg_name || die "Failed to download package from $url"
+  wget "$url" -O debs/$dbg_name 2>/dev/null || die "Failed to download package from $url"
   echo "  -> Extracting libc debug package"
 
   mkdir libs/$id/.debug
